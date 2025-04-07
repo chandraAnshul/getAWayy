@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getAWay Travels - Your Journey Begins Here</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0078d4;
+            --secondary-color: #ff6b6b;
+            --accent-color: #ffd166;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+        }
+
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #005fa3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #ff5252;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .logo h1 span {
+            color: var(--primary-color);
+        }
+
+        .logo-icon {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 30px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://source.unsplash.com/random/1600x900/?travel');
+            height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Popular Destinations */
+        .destinations {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .section-title p {
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .destination-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .destination-info {
+            padding: 20px;
+        }
+
+        .destination-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .destination-info p {
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .testimonial.active {
+            display: block;
+        }
+
+        .testimonial img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: var(--primary-color);
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        .contact .section-title h3,
+        .contact .section-title p {
+            color: white;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h5 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background-color: var(--primary-color);
+            padding: 40px 0;
+            color: white;
+        }
+
+        .newsletter-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .newsletter-text {
+            flex: 1;
+        }
+
+        .newsletter-text h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-form {
+            flex: 1;
+            display: flex;
+            max-width: 500px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+
+        .newsletter-form button {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .newsletter-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .newsletter-text {
+                margin-bottom: 20px;
+            }
+            
+            .newsletter-form {
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background-color: white;
+            z-index: 1000;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .close-menu {
+            font-size: 24px;
+            cursor: pointer;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-menu ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-size: 18px;
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 99;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon">✈️</span>
+                <h1>get<span>AWay</span> Travels</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#destinations">Destinations</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-btn">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="overlay"></div>
+    <div class="mobile-menu">
+        <div class="close-menu">✕</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h2>Your Journey Begins Here</h2>
+            <p>Discover amazing places and create unforgettable memories with getAWay Travels. We bring the world to your fingertips.</p>
+            <a href="#destinations" class="btn">Explore Destinations</a>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section class="destinations" id="destinations">
+        <div class="container">
+            <div class="section-title">
+                <h3>Popular Destinations</h3>
+                <p>Explore our most sought-after vacation spots. Perfect blend of adventure, relaxation, and cultural experiences.</p>
+            </div>
+            <div class="destinations-grid">
+                <!-- Destination 1 -->
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Bali, Indonesia" class="destination-img">
+                    <div class="destination-info">
+                        <h4>Bali, Indonesia</h4>
+                        <p>Experience the perfect blend of beautiful beaches, spiritual temples, and vibrant culture.</p>
+                        <span class="price">From $1,299</span>
+                        <a href="#" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Destination 2 -->
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Santorini, Greece" class="destination-img">
+                    <div class="destination-info">
+                        <h4>Santorini, Greece</h4>
+                        <p>Dazzling panoramas, whitewashed buildings, and spectacular sunsets over the Aegean Sea.</p>
+                        <span class="price">From $1,499</span>
+                        <a href="#" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Destination 3 -->
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Tokyo, Japan" class="destination-img">
+                    <div class="destination-info">
+                        <h4>Tokyo, Japan</h4>
+                        <p>A fascinating mix of ultra-modern and traditional, from skyscrapers to ancient temples.</p>
+                        <span class="price">From $1,899</span>
+                        <a href="#" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Destination 4 -->
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Machu Picchu, Peru" class="destination-img">
+                    <div class="destination-info">
+                        <h4>Machu Picchu, Peru</h4>
+                        <p>The ancient Incan citadel set against breathtaking mountain scenery and clouds.</p>
+                        <span class="price">From $1,699</span>
+                        <a href="#" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Destination 5 -->
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Maldives" class="destination-img">
+                    <div class="destination-info">
+                        <h4>Maldives</h4>
+                        <p>Crystal clear waters, overwater bungalows, and vibrant coral reefs for the perfect getaway.</p>
+                        <span class="price">From $2,299</span>
+                        <a href="#" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Destination 6 -->
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Barcelona, Spain" class="destination-img">
+                    <div class="destination-info">
+                        <h4>Barcelona, Spain</h4>
+                        <p>Gaudi's architecture, Mediterranean beaches, and a vibrant culinary and nightlife scene.</p>
+                        <span class="price">From $1,199</span>
+                        <a href="#" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h3>Our Premium Services</h3>
+                <p>At getAWay Travels, we go beyond just travel arrangements. We create experiences tailored to your desires.</p>
+            </div>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <div class="service-icon">🏨</div>
+                    <h4>Luxury Accommodations</h4>
+                    <p>Handpicked premium hotels, resorts, and villas to make your stay comfortable and memorable.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h4>Transportation</h4>
+                    <p>From airport shuttles to private vehicles, we ensure seamless transportation throughout your journey.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <div class="service-icon">🍴</div>
+                    <h4>Dining Experiences</h4>
+                    <p>Taste the local cuisine with our curated dining experiences at top-rated restaurants.</p>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <div class="service-icon">🧳</div>
+                    <h4>Customized Packages</h4>
+                    <p>Tailor-made travel packages designed according to your preferences and budget.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h3>What Our Travelers Say</h3>
+                <p>Read about the experiences of our satisfied customers who explored the world with getAWay Travels.</p>
+            </div>
+            <div class="testimonial-slider">
+                <!-- Testimonial 1 -->
+                <div class="testimonial active">
+                    <img src="/api/placeholder/200/200" alt="Sarah Johnson">
+                    <p>"Our Bali trip organized by getAWay Travels was nothing short of magical. Every detail was perfectly taken care of, from the beachfront villa to the private tours of ancient temples. Will definitely book with them again!"</p>
+                    <h4>Sarah Johnson</h4>
+                    <span>Bali, Indonesia</span>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial">
+                    <img src="/api/placeholder/200/200" alt="Michael Rodriguez">
+                    <p>"As a solo traveler, I was looking for both adventure and safety. getAWay Travels provided exactly that with my tour to Peru. Their local guides were knowledgeable, and the itinerary was perfectly balanced."</p>
+                    <h4>Michael Rodriguez</h4>
+                    <span>Machu Picchu, Peru</span>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial">
+                    <img src="/api/placeholder/200/200" alt="Emma and David Chen">
+                    <p>"Our honeymoon in the Maldives was a dream come true! The overwater bungalow, private dinners on the beach, and sunset cruise were all arranged perfectly by getAWay. Truly the romantic getaway we hoped for."</p>
+                    <h4>Emma and David Chen</h4>
+                    <span>Maldives</span>
+                </div>
+                
+                <!-- Navigation Dots -->
+                <div class="dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container newsletter-content">
+            <div class="newsletter-text">
+                <h4>Subscribe to Our Newsletter</h4>
+                <p>Get weekly travel inspiration, exclusive deals, and travel tips straight to your inbox.</p>
+            </div>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h3>Get In Touch</h3>
+                <p>Have questions or ready to plan your next adventure? Contact us and our travel experts will be happy to assist you.</p>
+            </div>
+            <div class="contact-wrapper">
+                <div>
+                    <div class="contact-info">
+                        <h4>Contact Information</h4>
+                        <p>📍 123 Travel Street, Adventureland, AW 56789</p>
+                        <p>📱 +1 (555) 123-4567</p>
+                        <p>✉️ <a href="mailto:info@getawaytravel.com">info@getawaytravel.com</a></p>
+                        <p>⏰ Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="Twitter">t</a>
+                        <a href="#" aria-label="Instagram">i</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                        <div class="success-message" id="successMessage">
+                            Thank you! Your message has been sent successfully.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h5>About Us</h5>
+                    <p>getAWay Travels is a premium travel agency dedicated to creating unforgettable journeys and experiences around the world.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="Twitter">t</a>
+                        <a href="#" aria-label="Instagram">i</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Popular Destinations</h5>
+                    <ul>
+                        <li><a href="#">Bali, Indonesia</a></li>
+                        <li><a href="#">Santorini, Greece</a></li>
+                        <li><a href="#">Tokyo, Japan</a></li>
+                        <li><a href="#">Machu Picchu, Peru</a></li>
+                        <li><a href="#">Maldives</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Help & Support</h5>
+                    <ul>
